@@ -64,14 +64,14 @@ user_saito = User.create!(
 
 puts '==================== creating project ===================='
 # 新規開発業務
-Project.create!(
+project_1 = Project.create!(
   name: '機構Aの騒音低減',
   description: '【保留】製品Aの機構Aの動作音の低減。改善要望がほとんどないため、保留。次世代機で対応する方針。',
   is_done: false,
   is_archived: true,
   users: [user_yamada, user_sato, user_bob]
 )
-Project.create!(
+project_2 = Project.create!(
   name: '製品Bの開発',
   description: '大規模病院向けの製品Bの開発。',
   is_done: false,
@@ -107,4 +107,57 @@ Project.create!(
   is_done: true,
   is_archived: false,
   users: [user_yamada, user_suzuki, user_saito]
+)
+
+puts '==================== creating task ===================='
+
+THIS_FRIDAY = Time.zone.now.end_of_week - 2.days
+
+project_1.tasks.create!(
+  name: '騒音の原因の特定',
+  is_done: false,
+  row_order: 1
+)
+
+project_2.tasks.create!(
+  name: 'QAへの入検',
+  start_at: THIS_FRIDAY + 11.weeks,
+  end_at: THIS_FRIDAY + 15.weeks,
+  is_done: false,
+  row_order: 7
+)
+project_2.tasks.create!(
+  name: '3Dモデル設計',
+  start_at: THIS_FRIDAY - 7.weeks,
+  end_at: THIS_FRIDAY - 1.weeks,
+  is_done: true,
+  row_order: 2
+)
+project_2.tasks.create!(
+  name: '図面作成',
+  start_at: THIS_FRIDAY - 1.weeks,
+  end_at: THIS_FRIDAY + 1.weeks,
+  is_done: false,
+  row_order: 3
+)
+project_2.tasks.create!(
+  name: '部品手配',
+  start_at: THIS_FRIDAY - 4.days,
+  end_at: THIS_FRIDAY + 1.weeks,
+  is_done: false,
+  row_order: 4
+)
+project_2.tasks.create!(
+  name: '組み立て',
+  start_at: THIS_FRIDAY + 5.weeks,
+  end_at: THIS_FRIDAY + 7.weeks,
+  is_done: false,
+  row_order: 5
+)
+project_2.tasks.create!(
+  name: '設計検証',
+  start_at: THIS_FRIDAY + 7.weeks,
+  end_at: THIS_FRIDAY + 11.weeks,
+  is_done: false,
+  row_order: 6
 )
